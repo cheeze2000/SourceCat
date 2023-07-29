@@ -1,6 +1,7 @@
 import { createSignal } from "solid-js";
 
 type PropertyKeys =
+	| "git.repo.url"
 	| "git.user.email"
 	| "git.user.name";
 
