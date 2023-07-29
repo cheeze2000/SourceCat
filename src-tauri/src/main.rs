@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use git2::Version;
+use git2::opts::set_verify_owner_validation;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -11,6 +12,11 @@ fn get_libgit2_version() -> String {
 }
 
 fn main() {
+	unsafe {
+		set_verify_owner_validation(false)
+			.expect("error while running tauri application");
+	}
+
 	tauri::Builder::default()
 		.invoke_handler(tauri::generate_handler![
 			get_libgit2_version,
