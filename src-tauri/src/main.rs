@@ -8,6 +8,7 @@ use git2::Version;
 use git2::opts::set_verify_owner_validation;
 
 use crate::repository::open_git_repository;
+use crate::repository::branch::get_branches;
 use crate::session::Session;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
@@ -29,6 +30,8 @@ fn main() {
 			get_libgit2_version,
 
 			open_git_repository,
+
+			get_branches,
 		])
 		.run(tauri::generate_context!())
 		.expect("error while running tauri application");
