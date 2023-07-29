@@ -3,6 +3,7 @@ import { Show, onMount } from "solid-js";
 
 import { useProperty } from "~/utils/useProperty";
 import { useRef } from "~/utils/useRef";
+import RepoSelector from "~/components/RepoSelector";
 
 const name = useProperty<string>("git.user.name");
 const email = useProperty<string>("git.user.email");
@@ -23,7 +24,8 @@ function Home() {
 	onMount(init);
 
 	return (
-		<div class="flex justify-end items-center">
+		<div class="flex justify-center items-center">
+			<RepoSelector />
 			<Show when={libVersion()}>
 				<div class="fixed flex flex-col items-end top-3 right-3">
 					<span>

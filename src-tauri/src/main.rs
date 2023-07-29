@@ -1,11 +1,13 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+mod repository;
 mod session;
 
 use git2::Version;
 use git2::opts::set_verify_owner_validation;
 
+use crate::repository::open_git_repository;
 use crate::session::Session;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
@@ -25,6 +27,8 @@ fn main() {
 		.manage(Session::new())
 		.invoke_handler(tauri::generate_handler![
 			get_libgit2_version,
+
+			open_git_repository,
 		])
 		.run(tauri::generate_context!())
 		.expect("error while running tauri application");
