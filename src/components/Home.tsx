@@ -5,8 +5,9 @@ import { useProperty } from "~/utils/useProperty";
 import { useRef } from "~/utils/useRef";
 import RepoSelector from "~/components/RepoSelector";
 
-const name = useProperty<string>("git.user.name");
+const repoUrl = useProperty<string>("git.repo.url");
 const email = useProperty<string>("git.user.email");
+const name = useProperty<string>("git.user.name");
 
 const libVersion = useRef<string>("");
 
@@ -16,16 +17,22 @@ async function init() {
 }
 
 function logout() {
-	name("");
+	repoUrl("");
 	email("");
+	name("");
 }
 
 function Home() {
 	onMount(init);
 
 	return (
-		<div class="flex justify-center items-center">
-			<RepoSelector />
+		<div class="flex justify-center items-center h-full">
+			<Show
+				when={repoUrl()}
+				fallback={<RepoSelector />}
+			>
+				Loaded {repoUrl()} successfully!
+			</Show>
 			<Show when={libVersion()}>
 				<div class="fixed flex flex-col items-end top-3 right-3">
 					<span>
